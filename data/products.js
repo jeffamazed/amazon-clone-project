@@ -469,4 +469,31 @@ const products = [
     priceCents: 2400,
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
+  {
+    id: "f4a1c3d2-7b8e-4e6f-9d3a-8c97b5f2e1a0",
+    image: "images/products/backpack.jpg",
+    name: "Simple Travel Backpack",
+    rating: {
+      stars: 4.5,
+      count: 2212,
+    },
+    priceCents: 1200,
+    keyword: ["umbrella", "folding umbrella", "compact umbrella"],
+  },
+  {
+    id: "a72e4f09-53b1-4c8d-8e17-2f5d0c7a3b6f",
+    image: "images/products/umbrella.jpg",
+    name: "Everyday Rain Umbrella",
+    rating: {
+      stars: 5,
+      count: 187,
+    },
+    priceCents: 1599,
+    keyword: [
+      "backpack",
+      "travel backpack",
+      "school backpack",
+      "lightweight backpack",
+    ],
+  },
 ];
