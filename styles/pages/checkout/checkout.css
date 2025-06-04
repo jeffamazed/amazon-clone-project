@@ -130,11 +130,11 @@
   font-size: 14px;
 }
 
-.update-quantity-form {
+.update-quantity-container {
   display: none;
 }
 
-.is-editing-quantity .update-quantity-form {
+.is-editing-quantity .update-quantity-container {
   display: inline;
 }
 

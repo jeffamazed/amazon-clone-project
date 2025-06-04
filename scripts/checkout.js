@@ -49,11 +49,12 @@ cart.forEach((cartItem) => {
               aria-label="Update quantity">
               Update
             </button>
-            <form class="update-quantity-form js-update-quantity-form-${
-              matchingProduct.id
-            }">
+
+            <div class="update-quantity-container">
               <input type="number"
-              min="0" name="quantity" class="quantity-input" value="1" />
+              min="0" name="quantity" class="quantity-input js-quantity-input-${
+                matchingProduct.id
+              }" value="1" />
 
               <button 
                 type="button" 
@@ -62,7 +63,7 @@ cart.forEach((cartItem) => {
                 aria-label="Save new quantity">
                 Save
               </button>
-            </form>
+            </div>
 
             <button 
               type="button" 
@@ -120,6 +121,7 @@ cart.forEach((cartItem) => {
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
 
+//For delete buttons
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
@@ -133,34 +135,33 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
   });
 });
 
+// For update buttons
 document.querySelectorAll(".js-update-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
     const container = document.querySelector(
       `.js-cart-item-container-${productId}`
     );
-    const formEl = document.querySelector(
-      `.js-update-quantity-form-${productId}`
-    );
+    const qtyInput = document.querySelector(`.js-quantity-input-${productId}`);
     const selectedItem = cart.find(
       (cartItem) => cartItem.productId === productId
     );
-    formEl.elements["quantity"].value = selectedItem.quantity;
+
+    qtyInput.value = selectedItem.quantity;
 
     container.classList.add("is-editing-quantity");
   });
 });
 
+// For save buttons
 document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
     const container = document.querySelector(
       `.js-cart-item-container-${productId}`
     );
-    const formEl = document.querySelector(
-      `.js-update-quantity-form-${productId}`
-    );
-    const newQty = Number(formEl.elements["quantity"].value);
+    const qtyInput = document.querySelector(`.js-quantity-input-${productId}`);
+    const newQty = Number(qtyInput.value);
 
     updateQuantity(productId, newQty);
     updateItemQty(productId, newQty);
