@@ -53,3 +53,13 @@ export function calculateCartQty() {
 
   return cartQty;
 }
+
+export function updateQuantity(productId, newQty) {
+  const matchingItem = cart.find(
+    (cartItem) => cartItem.productId === productId
+  );
+
+  matchingItem.quantity = newQty;
+
+  saveToStorage();
+}

@@ -125,6 +125,24 @@
   font-size: 16px;
 }
 
+.quantity-input {
+  width: 38px;
+  font-size: 14px;
+}
+
+.update-quantity-form {
+  display: none;
+}
+
+.is-editing-quantity .update-quantity-form {
+  display: inline;
+}
+
+.is-editing-quantity .quantity-label,
+.is-editing-quantity .update-quantity-link {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .delivery-options {
     /* grid-column: 1 means this element will be placed
@@ -214,4 +232,5 @@
 
   margin-top: 11px;
   margin-bottom: 15px;
+  font-size: 15px;
 }

@@ -1,4 +1,9 @@
-import { cart, removeFromCart, calculateCartQty } from "../data/cart.js";
+import {
+  cart,
+  removeFromCart,
+  calculateCartQty,
+  updateQuantity,
+} from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -19,25 +24,51 @@ cart.forEach((cartItem) => {
         <img
           class="product-image"
           src="${matchingProduct.image}"
+          alt="${matchingProduct.name}"
         />
 
         <div class="cart-item-details">
           <div class="product-name">
             ${matchingProduct.name}
           </div>
-          <div class="product-price">$${formatCurrency(
-            matchingProduct.priceCents
-          )}</div>
+          <div class="product-price">
+            $${formatCurrency(matchingProduct.priceCents)}
+          </div>
           <div class="product-quantity">
-            <span> Quantity: <span class="quantity-label">${
-              cartItem.quantity
-            }</span> </span>
-            <button class="update-quantity-link link-primary link-primary-btn">
+            <span> Quantity: 
+              <span 
+                role="status"
+                class="quantity-label js-quantity-label-${matchingProduct.id}">
+                ${cartItem.quantity}
+              </span> 
+            </span>
+            <button 
+              type="button" 
+              class="update-quantity-link link-primary link-primary-btn js-update-link" 
+              data-product-id="${matchingProduct.id}"
+              aria-label="Update quantity">
               Update
             </button>
-            <button class="delete-quantity-link link-primary link-primary-btn js-delete-link" data-product-id="${
+            <form class="update-quantity-form js-update-quantity-form-${
               matchingProduct.id
             }">
+              <input type="number"
+              min="0" name="quantity" class="quantity-input" value="1" />
+
+              <button 
+                type="button" 
+                class="save-quantity-link link-primary link-primary-btn js-save-quantity-link" 
+                data-product-id="${matchingProduct.id}"
+                aria-label="Save new quantity">
+                Save
+              </button>
+            </form>
+
+            <button 
+              type="button" 
+              class="delete-quantity-link link-primary link-primary-btn js-delete-link" 
+              data-product-id="${matchingProduct.id}"
+              aria-label="Delete product">
               Delete
             </button>
           </div>
@@ -102,12 +133,56 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
   });
 });
 
+document.querySelectorAll(".js-update-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+    const formEl = document.querySelector(
+      `.js-update-quantity-form-${productId}`
+    );
+    const selectedItem = cart.find(
+      (cartItem) => cartItem.productId === productId
+    );
+    formEl.elements["quantity"].value = selectedItem.quantity;
+
+    container.classList.add("is-editing-quantity");
+  });
+});
+
+document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+    const formEl = document.querySelector(
+      `.js-update-quantity-form-${productId}`
+    );
+    const newQty = Number(formEl.elements["quantity"].value);
+
+    updateQuantity(productId, newQty);
+    updateItemQty(productId, newQty);
+    updateCartQtyHeader();
+
+    container.classList.remove("is-editing-quantity");
+  });
+});
+
 function updateCartQtyHeader() {
   const cartQty = calculateCartQty();
 
   document.querySelector(
     ".js-return-to-home-link"
   ).textContent = `${cartQty} Items`;
+}
+
+function updateItemQty(productId, newQty) {
+  const selectedSpan = document.querySelector(
+    `.js-quantity-label-${productId}`
+  );
+  selectedSpan.textContent = newQty;
 }
 
 updateCartQtyHeader();
