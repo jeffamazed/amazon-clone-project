@@ -32,7 +32,7 @@ function renderOrderSummary() {
     <div class="cart-item-container js-cart-item-container-${
       matchingProduct.id
     }">
-      <div class="delivery-date">
+      <div class="delivery-date" role="status">
         Delivery date: ${dateString}
       </div>
 
