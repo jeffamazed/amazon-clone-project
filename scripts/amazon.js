@@ -11,6 +11,7 @@ products.forEach((product) => {
         <img
           class="product-image"
           src="${product.image}"
+          alt="${product.name}"
         />
       </div>
 
@@ -47,14 +48,14 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart js-added-to-cart-${product.id}">
-        <img src="images/icons/checkmark.png" />
-        Added
+      <div class="added-to-cart js-added-to-cart-${product.id}" role="status">
+        <img src="images/icons/checkmark.png" alt="" aria-hidden="true" />
+        <span class="js-added-text-${product.id}"></span>
       </div>
 
-      <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${
+      <button type="button" class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${
         product.id
-      }">Add to Cart</button>
+      }" aria-label="Add ${product.name} to cart">Add to Cart</button>
     </div>
   `;
 });
@@ -73,6 +74,9 @@ function updateCartQty() {
 
 const addedMsgTimeouts = {};
 function handleAddedMsg(addedMsg, productId) {
+  const textSpan = document.querySelector(`.js-added-text-${productId}`);
+  textSpan.textContent = "Added";
+
   addedMsg.classList.add("added-to-cart-visible");
 
   // check for previous timeouts
@@ -83,6 +87,7 @@ function handleAddedMsg(addedMsg, productId) {
 
   const timeoutId = setTimeout(() => {
     addedMsg.classList.remove("added-to-cart-visible");
+    textSpan.textContent = "";
   }, 2000);
   addedMsgTimeouts[productId] = timeoutId;
 }

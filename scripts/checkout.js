@@ -30,12 +30,12 @@ cart.forEach((cartItem) => {
             <span> Quantity: <span class="quantity-label">${
               cartItem.quantity
             }</span> </span>
-            <span class="update-quantity-link link-primary">
+            <button class="update-quantity-link link-primary link-primary-btn">
               Update
-            </span>
-            <span class="delete-quantity-link link-primary">
+            </button>
+            <button class="delete-quantity-link link-primary link-primary-btn js-delete-link">
               Delete
-            </span>
+            </button>
           </div>
         </div>
 
