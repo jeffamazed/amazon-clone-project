@@ -98,5 +98,20 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
       `.js-cart-item-container-${productId}`
     );
     container.remove();
+    updateCartQtyHeader();
   });
 });
+
+function updateCartQtyHeader() {
+  let cartQty = 0;
+
+  cart.forEach((cartItem) => {
+    cartQty += cartItem.quantity;
+  });
+
+  document.querySelector(
+    ".js-return-to-home-link"
+  ).textContent = `${cartQty} Items`;
+}
+
+updateCartQtyHeader();
