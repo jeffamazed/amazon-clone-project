@@ -207,10 +207,6 @@
   text-align: right;
 }
 
-.subtotal-row .payment-summary-money {
-  border-top: 1px solid rgb(222, 222, 222);
-}
-
 .subtotal-row div {
   padding-top: 9px;
 }
@@ -233,4 +229,20 @@
   margin-top: 11px;
   margin-bottom: 15px;
   font-size: 15px;
+}
+
+.payment-summary-row dt,
+.payment-summary-row dd {
+  margin: 0;
+  padding: 0;
+}
+
+.subtotal-row {
+  border-top: 1px solid rgb(222, 222, 222);
+  padding-top: 9px;
+}
+
+.total-row {
+  border-top: 1px solid rgb(222, 222, 222);
+  padding-top: 18px;
 }
