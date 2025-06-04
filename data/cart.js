@@ -64,3 +64,13 @@ export function updateQuantity(productId, newQty) {
 
   saveToStorage();
 }
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  const matchingItem = cart.find(
+    (cartItem) => cartItem.productId === productId
+  );
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveToStorage();
+}

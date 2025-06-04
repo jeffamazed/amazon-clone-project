@@ -3,6 +3,7 @@ import {
   removeFromCart,
   calculateCartQty,
   updateQuantity,
+  updateDeliveryOption,
 } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
@@ -10,7 +11,7 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
 
 let cartSummaryHTML = ``;
-console.log(cart);
+
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
 
@@ -119,7 +120,11 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html += `
-      <label class="delivery-option">
+      <label 
+        class="delivery-option js-delivery-option"
+        data-product-id="${matchingProduct.id}"
+        data-delivery-option-id=${deliveryOption.id}
+      >
         <input
           ${isChecked ? "checked" : ""}
           type="radio"
@@ -198,7 +203,7 @@ document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
   });
 });
 
-//For quantity input with enter key
+// For quantity input with enter key
 document.querySelectorAll(".quantity-input").forEach((input) => {
   input.addEventListener("keydown", (e) => {
     const productId = input.dataset.productId;
@@ -207,6 +212,14 @@ document.querySelectorAll(".quantity-input").forEach((input) => {
     if (e.key === "Enter") {
       saveBtn.click();
     }
+  });
+});
+
+// For radio inputs
+document.querySelectorAll(".js-delivery-option").forEach((label) => {
+  label.addEventListener("click", () => {
+    const { productId, deliveryOptionId } = label.dataset;
+    updateDeliveryOption(productId, deliveryOptionId);
   });
 });
 
