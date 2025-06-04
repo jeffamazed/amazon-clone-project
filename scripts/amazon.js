@@ -48,14 +48,22 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart js-added-to-cart-${product.id}" role="status">
+      <div 
+        class="added-to-cart js-added-to-cart-${product.id}"
+        aria-describedby="cart-announce"
+      >
         <img src="images/icons/checkmark.png" alt="" aria-hidden="true" />
-        <span class="js-added-text-${product.id}"></span>
+        <span >Added</span>
       </div>
 
-      <button type="button" class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${
-        product.id
-      }" aria-label="Add ${product.name} to cart">Add to Cart</button>
+      <button 
+        type="button" 
+        class="add-to-cart-button button-primary js-add-to-cart" 
+        data-product-id="${product.id}" 
+        aria-label="Add ${product.name} to cart"
+      >
+          Add to Cart
+      </button>
     </div>
   `;
 });
@@ -68,12 +76,14 @@ function updateCartQty() {
   document.querySelector(".js-cart-quantity").textContent = cartQty;
 }
 
+// for toggling "Added" msg
 const addedMsgTimeouts = {};
-function handleAddedMsg(addedMsg, productId) {
-  const textSpan = document.querySelector(`.js-added-text-${productId}`);
-  textSpan.textContent = "Added";
+function handleAddedMsg(productId) {
+  const addedMsgContainer = document.querySelector(
+    `.js-added-to-cart-${productId}`
+  );
 
-  addedMsg.classList.add("added-to-cart-visible");
+  addedMsgContainer.classList.add("added-to-cart-visible");
 
   // check for previous timeouts
   const prevTimeout = addedMsgTimeouts[productId];
@@ -82,8 +92,7 @@ function handleAddedMsg(addedMsg, productId) {
   }
 
   const timeoutId = setTimeout(() => {
-    addedMsg.classList.remove("added-to-cart-visible");
-    textSpan.textContent = "";
+    addedMsgContainer.classList.remove("added-to-cart-visible");
   }, 2000);
   addedMsgTimeouts[productId] = timeoutId;
 }
@@ -97,11 +106,10 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
       `.js-quantity-selector-${productId}`
     );
     const quantity = Number(qtySelector.value);
-    const addedMsg = document.querySelector(`.js-added-to-cart-${productId}`);
 
     addToCart(productId, quantity);
     updateCartQty();
-    handleAddedMsg(addedMsg, productId);
+    handleAddedMsg(productId);
   });
 });
 
