@@ -142,7 +142,7 @@
      be invisible. Use JavaScript to change the
      opacity and make it visible. */
   opacity: 0;
-  transition: opacity 0.3s ease-in;
+  transition: opacity 0.2s ease-in;
   pointer-events: none;
 }
 

@@ -72,6 +72,8 @@
   font-size: 23px;
   text-decoration: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 1000px) {
