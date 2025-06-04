@@ -167,7 +167,7 @@ document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
     const qtyInput = document.querySelector(`.js-quantity-input-${productId}`);
     const newQty = Number(qtyInput.value);
 
-    if (newQty < 0 || newQty > 1000) {
+    if (newQty < 0 || newQty >= 1000) {
       alert("Quantity must be at least 0 and less than 1000.");
       return;
     }
