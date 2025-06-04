@@ -51,12 +51,16 @@ cart.forEach((cartItem) => {
             </button>
 
             <div class="update-quantity-container">
-              <input type="number"
-              min="0" name="quantity" class="quantity-input js-quantity-input-${
-                matchingProduct.id
-              }" value="1" />
+              <input 
+                type="number"
+                min="0" 
+                class="quantity-input js-quantity-input-${matchingProduct.id}" 
+                value="1" 
+                data-product-id="${matchingProduct.id}"
+              />
 
               <button 
+                id="js-save-btn-${matchingProduct.id}"
                 type="button" 
                 class="save-quantity-link link-primary link-primary-btn js-save-quantity-link" 
                 data-product-id="${matchingProduct.id}"
@@ -163,11 +167,28 @@ document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
     const qtyInput = document.querySelector(`.js-quantity-input-${productId}`);
     const newQty = Number(qtyInput.value);
 
+    if (newQty < 0 || newQty > 1000) {
+      alert("Quantity must be at least 0 and less than 1000.");
+      return;
+    }
+
     updateQuantity(productId, newQty);
     updateItemQty(productId, newQty);
     updateCartQtyHeader();
 
     container.classList.remove("is-editing-quantity");
+  });
+});
+
+//For quantity input with enter key
+document.querySelectorAll(".quantity-input").forEach((input) => {
+  input.addEventListener("keydown", (e) => {
+    const productId = input.dataset.productId;
+    const saveBtn = document.getElementById(`js-save-btn-${productId}`);
+
+    if (e.key === "Enter") {
+      saveBtn.click();
+    }
   });
 });
 
