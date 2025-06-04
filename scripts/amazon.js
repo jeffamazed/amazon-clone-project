@@ -71,6 +71,7 @@ function updateCartQty() {
 
   document.querySelector(".js-cart-quantity").textContent = cartQty;
 }
+updateCartQty();
 
 const addedMsgTimeouts = {};
 function handleAddedMsg(addedMsg, productId) {
