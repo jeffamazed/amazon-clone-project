@@ -14,4 +14,9 @@ describe("Test suite: getProduct", () => {
       getProduct("e43638ce-6aa0-4b85-b27f-e1d07eb678c6").priceCents
     ).toEqual(firstProduct.priceCents);
   });
+
+  it("Handles edge cases (given a random id as an argument)", () => {
+    // check if it returns undefined
+    expect(getProduct("some-id")).toEqual(undefined);
+  });
 });
