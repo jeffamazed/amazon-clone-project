@@ -34,14 +34,19 @@ export function renderPaymentSummary() {
 
       <div class="payment-summary-row">
         <dt>Shipping &amp; handling:</dt>
-        <dd class="payment-summary-money">
+        <dd 
+          class="payment-summary-money
+          js-payment-summary-shipping"
+        >
           $${formatCurrency(shippingPriceCents)}
         </dd>
       </div>
 
       <div class="payment-summary-row subtotal-row">
         <dt>Total before tax:</dt>
-        <dd class="payment-summary-money">
+        <dd 
+          class="payment-summary-money"
+        >
           $${formatCurrency(totalBeforeTaxCents)}
         </dd>
       </div>
@@ -55,7 +60,10 @@ export function renderPaymentSummary() {
 
       <div class="payment-summary-row total-row">
         <dt>Order total:</dt>
-        <dd class="payment-summary-money">
+        <dd 
+          class="payment-summary-money
+          js-payment-summary-total"
+        >
           $${formatCurrency(totalCents)}
         </dd>
       </div>

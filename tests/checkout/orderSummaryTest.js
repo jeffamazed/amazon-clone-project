@@ -1,5 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
+import { mockLocalStorageWith } from "../data/cartTest.js";
 
 describe("Test suite: renderOrderSummary", () => {
   const existingProducts = [
@@ -17,17 +18,7 @@ describe("Test suite: renderOrderSummary", () => {
 
   beforeEach(() => {
     // using this because the browser doesn't allow localStorage to be spied on
-    Object.defineProperty(window, "localStorage", {
-      value: {
-        getItem: jasmine
-          .createSpy("getItem")
-          .and.returnValue(JSON.stringify([])),
-        setItem: jasmine.createSpy("setItem"),
-        removeItem: jasmine.createSpy("removeItem"),
-        clear: jasmine.createSpy("clear"),
-      },
-      writable: true,
-    });
+    mockLocalStorageWith([]);
 
     document.querySelector(".js-test-container").innerHTML = `
       <header class="js-checkout-header"></header>
@@ -138,5 +129,33 @@ describe("Test suite: renderOrderSummary", () => {
 
     // check if the item left in the cart is equal to the second item
     expect(cart[0].productId).toEqual(existingProducts[1].productId);
+  });
+
+  it("Updates the delivery option", () => {
+    const firstItemId = existingProducts[0].productId;
+    document.querySelector(`.js-delivery-option-${firstItemId}-3`).click();
+
+    // test if the first product in the cart is checked with the 3rd delivery opt
+    expect(
+      document.querySelector(`.js-delivery-option-input-${firstItemId}-3`)
+        .checked
+    ).toEqual(true);
+
+    // test if the cart length is correct
+    expect(cart.length).toEqual(2);
+
+    // test if the first product is correct
+    expect(cart[0].productId).toEqual(firstItemId);
+
+    // test if the delivery option for the first product in the cart is correct
+    expect(cart[0].deliveryOptionId).toEqual("3");
+
+    // test if the shipping price and total price are correct
+    expect(
+      document.querySelector(".js-payment-summary-shipping").innerText
+    ).toEqual("$9.99");
+    expect(
+      document.querySelector(".js-payment-summary-total").innerText
+    ).toEqual("$58.01");
   });
 });

@@ -217,14 +217,17 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
 
     html += `
       <label 
-        class="delivery-option js-delivery-option"
+        class="delivery-option 
+        js-delivery-option
+        js-delivery-option-${matchingProduct.id}-${deliveryOption.id}"
         data-product-id="${matchingProduct.id}"
         data-delivery-option-id=${deliveryOption.id}
       >
         <input
           ${isChecked ? "checked" : ""}
           type="radio"
-          class="delivery-option-input"
+          class="delivery-option-input
+          js-delivery-option-input-${matchingProduct.id}-${deliveryOption.id}"
           name="delivery-option-${matchingProduct.id}"
         />
         <div>
