@@ -155,6 +155,7 @@
   width: 100%;
   padding: 8px;
   border-radius: 50px;
+  transition: background-color 0.2s ease;
 }
 
 .added-to-cart-visible {
