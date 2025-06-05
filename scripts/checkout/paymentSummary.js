@@ -7,11 +7,13 @@ import { formatCurrency } from "../utils/money.js";
 export function renderPaymentSummary() {
   const productPriceCents = cart.reduce((sum, cartItem) => {
     const product = getProduct(cartItem.productId);
+    if (!product) return sum;
     return (sum += product.priceCents * cartItem.quantity);
   }, 0);
 
   const shippingPriceCents = cart.reduce((sum, cartItem) => {
     const chosenDeliveryOpt = getDeliveryOption(cartItem.deliveryOptionId);
+    if (!chosenDeliveryOpt) return sum;
     return (sum += chosenDeliveryOpt.priceCents);
   }, 0);
 
