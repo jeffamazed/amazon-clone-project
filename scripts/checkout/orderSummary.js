@@ -16,7 +16,7 @@ import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 export function renderOrderSummary() {
-  let cartSummaryHTML = ``;
+  let cartSummaryHTML = "";
   const today = dayjs();
 
   cart.forEach((cartItem) => {
