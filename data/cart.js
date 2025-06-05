@@ -55,7 +55,7 @@ export function calculateCartQty() {
   return cartQty;
 }
 
-export function updateQuantity(productId, newQty) {
+export function updateQty(productId, newQty) {
   const matchingItem = cart.find(
     (cartItem) => cartItem.productId === productId
   );
