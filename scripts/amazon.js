@@ -93,7 +93,7 @@ function handleAddedMsg(productId) {
 
   const timeoutId = setTimeout(() => {
     addedMsgContainer.classList.remove("added-to-cart-visible");
-  }, 2000);
+  }, 1000);
   addedMsgTimeouts[productId] = timeoutId;
 }
 
