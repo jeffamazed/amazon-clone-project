@@ -42,27 +42,57 @@ describe("Test suite: renderOrderSummary", () => {
     renderOrderSummary();
   });
 
+  afterEach(() => {
+    // delete the html after testing
+    document.querySelector(".js-test-container").innerHTML = "";
+  });
+
   it("Displays the cart", () => {
     expect(document.querySelectorAll(".js-cart-item-container").length).toEqual(
       2
     );
 
-    // checking product 1
+    // check if product 1 exists
     expect(
       document.querySelector(
         `.js-product-quantity-${existingProducts[0].productId}`
       ).innerText
     ).toContain("Quantity: 2");
 
-    // checking product 2
+    // check if product 2 exists
     expect(
       document.querySelector(
         `.js-product-quantity-${existingProducts[1].productId}`
       ).innerText
     ).toContain("Quantity: 1");
 
-    // delete the html after testing
-    document.querySelector(".js-test-container").innerHTML = "";
+    // test if the name matches for product 1
+    expect(
+      document.querySelector(
+        `.js-product-name-${existingProducts[0].productId}`
+      ).innerText
+    ).toContain("Black and Gray Athletic Cotton Socks - 6 Pairs");
+
+    // test if the name matches for product 2
+    expect(
+      document.querySelector(
+        `.js-product-name-${existingProducts[1].productId}`
+      ).innerText
+    ).toContain("Intermediate Size Basketball");
+
+    // test if the price matches for product 1
+    expect(
+      document.querySelector(
+        `.js-product-price-${existingProducts[0].productId}`
+      ).innerText
+    ).toContain("$10.90");
+
+    // test if the price matches for product 2
+    expect(
+      document.querySelector(
+        `.js-product-price-${existingProducts[1].productId}`
+      ).innerText
+    ).toContain("$20.95");
   });
 
   it("Removes a product", () => {
@@ -75,27 +105,38 @@ describe("Test suite: renderOrderSummary", () => {
       1
     );
 
-    // check for product 1
+    // check if product 1 exists
     expect(
       document.querySelector(
         `.js-cart-item-container-${existingProducts[0].productId}`
       )
     ).toEqual(null);
 
-    // check for product 2
+    // check if product 2 exists
     expect(
       document.querySelector(
         `.js-cart-item-container-${existingProducts[1].productId}`
       )
     ).not.toEqual(null);
 
+    // test if the name matches for product 2
+    expect(
+      document.querySelector(
+        `.js-product-name-${existingProducts[1].productId}`
+      ).innerText
+    ).toContain("Intermediate Size Basketball");
+
+    // test if the price matches for product 2
+    expect(
+      document.querySelector(
+        `.js-product-price-${existingProducts[1].productId}`
+      ).innerText
+    ).toContain("$20.95");
+
     // check cart length after delete
     expect(cart.length).toEqual(1);
 
     // check if the item left in the cart is equal to the second item
     expect(cart[0].productId).toEqual(existingProducts[1].productId);
-
-    // delete the html after testing
-    document.querySelector(".js-test-container").innerHTML = "";
   });
 });
