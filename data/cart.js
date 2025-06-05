@@ -1,16 +1,20 @@
 export let cart = [];
 
-try {
-  const savedCartData = JSON.parse(localStorage.getItem("cart"));
+loadFromStorage();
 
-  if (Array.isArray(savedCartData)) {
-    cart.length = 0;
-    cart.push(...savedCartData);
-  } else {
+export function loadFromStorage() {
+  try {
+    const savedCartData = JSON.parse(localStorage.getItem("cart"));
+
+    if (Array.isArray(savedCartData)) {
+      cart.length = 0;
+      cart.push(...savedCartData);
+    } else {
+      cart.length = 0;
+    }
+  } catch (e) {
     cart.length = 0;
   }
-} catch (e) {
-  cart.length = 0;
 }
 
 function saveToStorage() {
