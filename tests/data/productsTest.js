@@ -4,10 +4,19 @@ import {
   Product,
   Clothing,
   Appliance,
+  loadProducts,
 } from "../../data/products.js";
 
 describe("Test suite: getProduct", () => {
-  const firstProduct = products[0];
+  let firstProduct;
+
+  beforeEach((done) => {
+    loadProducts(() => {
+      done();
+    });
+
+    firstProduct = products[0];
+  });
 
   it("Returns the matching product from products", () => {
     // check if the product's name is the same
