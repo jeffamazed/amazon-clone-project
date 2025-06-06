@@ -2,7 +2,7 @@ import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { Cart } from "../../data/cart-class.js";
 import { mockLocalStorageWith } from "../data/cartTest.js";
 
-import { loadProducts } from "../../data/products.js";
+import { loadProductsFetch } from "../../data/products.js";
 
 describe("Test suite: renderOrderSummary", () => {
   let testCart;
@@ -20,7 +20,7 @@ describe("Test suite: renderOrderSummary", () => {
   ];
 
   beforeAll((done) => {
-    loadProducts(() => {
+    loadProductsFetch().then(() => {
       done();
     });
   });

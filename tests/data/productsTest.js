@@ -4,14 +4,14 @@ import {
   Product,
   Clothing,
   Appliance,
-  loadProducts,
+  loadProductsFetch,
 } from "../../data/products.js";
 
 describe("Test suite: getProduct", () => {
   let firstProduct;
 
   beforeEach((done) => {
-    loadProducts(() => {
+    loadProductsFetch().then(() => {
       done();
     });
 
