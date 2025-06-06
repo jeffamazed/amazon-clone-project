@@ -100,6 +100,7 @@ export function loadCart(fun) {
 
   xhr.addEventListener("load", () => {
     if (typeof fun === "function") fun();
+    console.log("load cart");
   });
 
   xhr.open("GET", "https://supersimplebackend.dev/cart");
