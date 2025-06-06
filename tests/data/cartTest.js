@@ -23,14 +23,13 @@ const existingItem = [
 ];
 
 describe("Test suite: cart.addToCart()", () => {
-  let cart;
   beforeEach(() => {
     // using this because the browser doesnt allow localstorage to be spied on
     mockLocalStorageWith([]);
   });
 
   it("Adds a new product to the cart", () => {
-    cart = new Cart("cart-class");
+    const cart = new Cart("cart-class");
     cart.addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 1);
 
     // test if the length is 1 from added item
@@ -62,7 +61,7 @@ describe("Test suite: cart.addToCart()", () => {
 
   it("Adds an existing product to the cart", () => {
     localStorage.getItem.and.returnValue(JSON.stringify(existingItem));
-    cart = new Cart("cart-class");
+    const cart = new Cart("cart-class");
 
     cart.addToCart("e43638ce-6aa0-4b85-b27f-e1d07eb678c6", 1);
 
@@ -96,9 +95,9 @@ describe("Test suite: cart.addToCart()", () => {
 describe("Test suite: cart.removeFromCart()", () => {
   let cart;
   beforeEach(() => {
-    cart = new Cart("cart-class");
     // using this because the browser doesn't allow localStorage to be spied on
     mockLocalStorageWith(existingItem);
+    cart = new Cart("cart-class");
   });
 
   it("Removes a product that is in the cart based on productId", () => {
@@ -149,9 +148,9 @@ describe("Test suite: cart.removeFromCart()", () => {
 describe("Test suite: cart.updateDeliveryOption()", () => {
   let cart;
   beforeEach(() => {
-    cart = new Cart("cart-class");
     // using this because the browser doesn't allow localStorage to be spied on
     mockLocalStorageWith(existingItem);
+    cart = new Cart("cart-class");
   });
 
   it("Updates the delivery option of a product in the cart", () => {
