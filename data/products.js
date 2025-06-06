@@ -554,12 +554,7 @@ export const products = [
       count: 2212,
     },
     priceCents: 1200,
-    keyword: [
-      "umbrella",
-      "folding umbrella",
-      "compact umbrella",
-      "umbrella travel",
-    ],
+    keywords: ["backpack", "travel", "lightweight", "carry-on", "bag"],
   },
   {
     id: "a72e4f09-53b1-4c8d-8e17-2f5d0c7a3b6f",
@@ -570,7 +565,7 @@ export const products = [
       count: 187,
     },
     priceCents: 1599,
-    keyword: ["backpack", "travel backpack", "school backpack", "essential"],
+    keywords: ["umbrella", "storm", "windproof", "rain gear", "travel"],
   },
 ].map((productDetails) => {
   if (productDetails.type === "clothing") {
