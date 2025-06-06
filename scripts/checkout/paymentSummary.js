@@ -1,23 +1,23 @@
-import { cart, calculateCartQty } from "../../data/cart.js";
+import { cart } from "../../data/cart-class.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 
 import { formatCurrency } from "../utils/money.js";
 
-export function renderPaymentSummary() {
-  const productPriceCents = cart.reduce((sum, cartItem) => {
+export function renderPaymentSummary(cartInstance = cart) {
+  const productPriceCents = cartInstance.cartItems.reduce((sum, cartItem) => {
     const product = getProduct(cartItem.productId);
     if (!product) return sum;
     return (sum += product.priceCents * cartItem.quantity);
   }, 0);
 
-  const shippingPriceCents = cart.reduce((sum, cartItem) => {
+  const shippingPriceCents = cartInstance.cartItems.reduce((sum, cartItem) => {
     const chosenDeliveryOpt = getDeliveryOption(cartItem.deliveryOptionId);
     if (!chosenDeliveryOpt) return sum;
     return (sum += chosenDeliveryOpt.priceCents);
   }, 0);
 
-  const cartQty = calculateCartQty();
+  const cartQty = cartInstance.calculateCartQty();
 
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
   const taxCents = totalBeforeTaxCents * 0.1;

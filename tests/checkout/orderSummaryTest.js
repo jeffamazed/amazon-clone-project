@@ -1,8 +1,9 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
-import { loadFromStorage, cart } from "../../data/cart.js";
+import { Cart } from "../../data/cart-class.js";
 import { mockLocalStorageWith } from "../data/cartTest.js";
 
 describe("Test suite: renderOrderSummary", () => {
+  let testCart;
   const existingProducts = [
     {
       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -17,20 +18,20 @@ describe("Test suite: renderOrderSummary", () => {
   ];
 
   beforeEach(() => {
-    // using this because the browser doesn't allow localStorage to be spied on
-    mockLocalStorageWith([]);
-
     document.querySelector(".js-test-container").innerHTML = `
       <header class="js-checkout-header"></header>
       <div class="js-order-summary"></div>
       <div class="js-payment-summary"></div>
     `;
 
+    // using this because the browser doesn't allow localStorage to be spied on
+    mockLocalStorageWith([]);
+
     localStorage.getItem.and.returnValue(JSON.stringify(existingProducts));
 
-    loadFromStorage();
+    testCart = new Cart("cart-class");
 
-    renderOrderSummary();
+    renderOrderSummary(testCart);
   });
 
   afterEach(() => {
@@ -88,6 +89,7 @@ describe("Test suite: renderOrderSummary", () => {
 
   it("Removes a product", () => {
     // deleting the first product
+
     document
       .querySelector(`.js-delete-link-${existingProducts[0].productId}`)
       .click();
@@ -125,14 +127,17 @@ describe("Test suite: renderOrderSummary", () => {
     ).toContain("$20.95");
 
     // check cart length after delete
-    expect(cart.length).toEqual(1);
+    expect(testCart.cartItems.length).toEqual(1);
 
     // check if the item left in the cart is equal to the second item
-    expect(cart[0].productId).toEqual(existingProducts[1].productId);
+    expect(testCart.cartItems[0].productId).toEqual(
+      existingProducts[1].productId
+    );
   });
 
   it("Updates the delivery option", () => {
     const firstItemId = existingProducts[0].productId;
+
     document.querySelector(`.js-delivery-option-${firstItemId}-3`).click();
 
     // test if the first product in the cart is checked with the 3rd delivery opt
@@ -142,13 +147,13 @@ describe("Test suite: renderOrderSummary", () => {
     ).toEqual(true);
 
     // test if the cart length is correct
-    expect(cart.length).toEqual(2);
+    expect(testCart.cartItems.length).toEqual(2);
 
     // test if the first product is correct
-    expect(cart[0].productId).toEqual(firstItemId);
+    expect(testCart.cartItems[0].productId).toEqual(firstItemId);
 
     // test if the delivery option for the first product in the cart is correct
-    expect(cart[0].deliveryOptionId).toEqual("3");
+    expect(testCart.cartItems[0].deliveryOptionId).toEqual("3");
 
     // test if the shipping price and total price are correct
     expect(
