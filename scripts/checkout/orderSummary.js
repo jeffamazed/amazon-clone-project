@@ -20,19 +20,27 @@ export function renderOrderSummary() {
   const today = dayjs();
   const productsToRemove = [];
 
-  for (const cartItem of cart) {
+  if (cart.length === 0) {
+    cartSummaryHTML += `
+    <div class="cart-item-container">
+      <p>Your cart is empty.</p>
+    </div>
+    `;
+  }
+
+  cart.forEach((cartItem) => {
     const productId = cartItem.productId;
     const matchingProduct = getProduct(productId);
 
     if (!matchingProduct) {
       cartSummaryHTML += `
         <div class="cart-item-container">
-           <p>Sorry, a product in your cart is no longer available.</p>
+           <p>Sorry, this product is currently not available.</p>
         </div>
       `;
       console.warn(`Product not found for ID: ${productId}`);
       productsToRemove.push(productId);
-      continue;
+      return;
     }
 
     const deliveryOptionId = cartItem.deliveryOptionId;
@@ -129,7 +137,7 @@ export function renderOrderSummary() {
       </div>
     </div>
   `;
-  }
+  });
 
   for (const productId of productsToRemove) {
     removeFromCart(productId);
