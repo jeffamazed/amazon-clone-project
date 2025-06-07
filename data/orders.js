@@ -20,7 +20,6 @@ export function addOrder(order) {
 function saveToStorage() {
   localStorage.setItem("orders", JSON.stringify(orders));
 }
-console.log(orders);
 
 export function getDate(orderTime) {
   const date = dayjs(orderTime).format("MMMM D");

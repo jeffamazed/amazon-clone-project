@@ -1,5 +1,6 @@
 import { cart } from "../data/cart-class.js";
 import { products, loadProducts } from "../data/products.js";
+import { updateCartQty } from "./utils/updateCartQty.js";
 
 loadProducts(renderProductsGrid);
 
@@ -73,12 +74,6 @@ function renderProductsGrid() {
   }, "");
 
   document.querySelector(".js-products-grid").innerHTML = productsHTML;
-
-  function updateCartQty() {
-    const cartQty = cart.calculateCartQty();
-
-    document.querySelector(".js-cart-quantity").textContent = cartQty;
-  }
 
   // for toggling "Added" msg
   const addedMsgTimeouts = {};

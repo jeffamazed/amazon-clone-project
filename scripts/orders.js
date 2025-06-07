@@ -3,6 +3,7 @@ import { getProduct, loadProductsFetch } from "../data/products.js";
 import { getDate } from "../data/orders.js";
 import { formatCurrency } from "./utils/money.js";
 import { cart } from "../data/cart-class.js";
+import { updateCartQty } from "./utils/updateCartQty.js";
 
 function renderOrderHeader(order) {
   const date = getDate(order.orderTime);
@@ -70,8 +71,7 @@ function renderOrderedProducts(orderedProducts, order) {
 
       <div class="product-actions">
         <a 
-          href="tracking.html
-          ?orderId=${order.id}&productId=${matchingProduct.id}"
+          href="tracking.html?orderId=${order.id}&productId=${matchingProduct.id}"
         >
           <button
             type="button"
@@ -145,14 +145,6 @@ async function loadPage(ordersInstance = orders) {
   });
 
   updateCartQty();
-}
-
-function updateCartQty(cartItemsInstance = cart.cartItems) {
-  const totalQty = cartItemsInstance.reduce((qty, curr) => {
-    return qty + curr.quantity;
-  }, 0);
-
-  document.querySelector(".js-cart-quantity").textContent = totalQty;
 }
 
 loadPage();

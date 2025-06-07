@@ -8,6 +8,7 @@ import {
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
+import { getDateString } from "../utils/getDateString.js";
 
 export function renderOrderSummary(cartInstance = cart) {
   let cartSummaryHTML = "";
@@ -41,9 +42,11 @@ export function renderOrderSummary(cartInstance = cart) {
 
     const chosenDeliveryOpt = getDeliveryOption(deliveryOptionId);
 
-    const dateString = today
-      .add(chosenDeliveryOpt.deliveryDays, "days")
-      .format("dddd, MMMM D");
+    const dateString = getDateString(
+      today,
+      chosenDeliveryOpt.deliveryDays,
+      "dddd, MMMM D"
+    );
 
     cartSummaryHTML += `
     <div 
@@ -222,9 +225,11 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
 
   // this updates the date based on dayjs()
   deliveryOptions.forEach((deliveryOption) => {
-    const dateString = today
-      .add(deliveryOption.deliveryDays, "days")
-      .format("dddd, MMMM D");
+    const dateString = getDateString(
+      today,
+      deliveryOption.deliveryDays,
+      "dddd, MMMM D"
+    );
     const priceString =
       deliveryOption.priceCents === 0
         ? "FREE"

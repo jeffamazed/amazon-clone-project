@@ -63,48 +63,15 @@
 
           <a class="cart-link nav-link" href="checkout.html">
             <img class="cart-icon" src="images/icons/cart-icon.png" />
-            <div class="cart-quantity">3</div>
+            <span class="cart-quantity js-cart-quantity"></span>
             <div class="cart-text">Cart</div>
           </a>
         </div>
       </nav>
     </header>
 
-    <main class="main">
-      <div class="order-tracking">
-        <a class="back-to-orders-link link-primary" href="orders.html">
-          View all orders
-        </a>
+    <main class="main js-main"></main>
 
-        <h1 class="delivery-date">Arriving on Monday, June 13</h1>
-
-        <p class="product-info">
-          Black and Gray Athletic Cotton Socks - 6 Pairs
-        </p>
-
-        <p class="product-info">Quantity: 1</p>
-
-        <img
-          class="product-image"
-          src="images/products/athletic-cotton-socks-6-pairs.jpg"
-          alt="Black and Gray Athletic Cotton Socks - 6 Pairs"
-        />
-
-        <div class="progress-labels-container">
-          <span class="progress-label">Preparing</span>
-          <span class="progress-label current-status">Shipped</span>
-          <span class="progress-label">Delivered</span>
-        </div>
-
-        <div class="progress-bar-container">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
-    </main>
-    <script>
-      const url = new URL(window.location.href);
-      console.log(url.searchParams.get("orderId"));
-      console.log(url.searchParams.get("productId"));
-    </script>
+    <script type="module" src="./scripts/tracking.js"></script>
   </body>
 </html>

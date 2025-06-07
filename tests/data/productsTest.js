@@ -10,10 +10,8 @@ import {
 describe("Test suite: getProduct", () => {
   let firstProduct;
 
-  beforeEach((done) => {
-    loadProductsFetch().then(() => {
-      done();
-    });
+  beforeEach(async () => {
+    await loadProductsFetch();
 
     firstProduct = products[0];
   });
@@ -21,7 +19,7 @@ describe("Test suite: getProduct", () => {
   it("Returns the matching product from products", () => {
     // check if the product's name is the same
     expect(getProduct("e43638ce-6aa0-4b85-b27f-e1d07eb678c6").name).toEqual(
-      firstProduct.name
+      "Black and Gray Athletic Cotton Socks - 6 Pairs"
     );
 
     // check if the product's price is the same
