@@ -19,8 +19,6 @@ export class Cart {
       if (Array.isArray(savedCartData)) {
         this.cartItems.length = 0;
         this.cartItems.push(...savedCartData);
-      } else {
-        this.cartItems.length = 0;
       }
     } catch (e) {
       this.cartItems.length = 0;
@@ -100,7 +98,6 @@ export function loadCart(fun) {
 
   xhr.addEventListener("load", () => {
     if (typeof fun === "function") fun();
-    console.log("load cart");
   });
 
   xhr.open("GET", "https://supersimplebackend.dev/cart");

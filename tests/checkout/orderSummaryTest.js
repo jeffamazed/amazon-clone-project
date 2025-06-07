@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { Cart } from "../../data/cart-class.js";
-import { mockLocalStorageWith } from "../data/cartTest.js";
+import { mockLocalStorageWith } from "../tests-utils/mockLocalStorage.js";
 
 import { loadProductsFetch } from "../../data/products.js";
 
