@@ -1,3 +1,4 @@
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 export const orders = [];
 
 try {
@@ -18,4 +19,10 @@ export function addOrder(order) {
 
 function saveToStorage() {
   localStorage.setItem("orders", JSON.stringify(orders));
+}
+console.log(orders);
+
+export function getDate(orderTime) {
+  const date = dayjs(orderTime).format("MMMM D");
+  return date;
 }

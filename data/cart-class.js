@@ -89,20 +89,14 @@ export class Cart {
 
     this.saveToStorage();
   }
+
+  emptyCart() {
+    this.cartItems.length = 0;
+    this.saveToStorage();
+  }
 }
 
 export const cart = new Cart("cart-class");
-
-export function loadCart(fun) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener("load", () => {
-    if (typeof fun === "function") fun();
-  });
-
-  xhr.open("GET", "https://supersimplebackend.dev/cart");
-  xhr.send();
-}
 
 export async function loadCartFetch() {
   const res = await fetch("http://supersimplebackend.dev/cart");

@@ -99,6 +99,7 @@ export function renderPaymentSummary(cartInstance = cart) {
 
         const order = await response.json();
         addOrder(order);
+        cart.emptyCart();
       } catch (error) {
         console.log("Unexpected error. Try again later. Error: ", error);
       }
