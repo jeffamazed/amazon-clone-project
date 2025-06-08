@@ -101,7 +101,6 @@ export const cart = new Cart("cart-class");
 export async function loadCartFetch() {
   const res = await fetch("http://supersimplebackend.dev/cart");
   const text = await res.text();
-  console.log(text);
 
   return text;
 }

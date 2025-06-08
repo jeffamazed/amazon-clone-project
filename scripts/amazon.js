@@ -5,7 +5,28 @@ import { updateCartQty } from "./utils/updateCartQty.js";
 loadProducts(renderProductsGrid);
 
 function renderProductsGrid() {
-  const productsHTML = products.reduce((html, product) => {
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get("search");
+
+  // restore user's input
+  const searchInput = document.querySelector(".js-search-bar");
+  if (search && searchInput) {
+    searchInput.value = search;
+  }
+
+  // check if there's search
+  let filteredProducts = products;
+  if (search) {
+    filteredProducts = filteredProducts.filter((product) => {
+      const searchAllCase = search.toLowerCase();
+      return (
+        product.name.toLowerCase().includes(searchAllCase) ||
+        product.keywords.includes(searchAllCase)
+      );
+    });
+  }
+
+  const productsHTML = filteredProducts.reduce((html, product) => {
     return (html += `
     <div class="product-container">
       <div class="product-image-container">
@@ -114,3 +135,26 @@ function renderProductsGrid() {
 
   updateCartQty();
 }
+
+// for search button
+const searchButton = document.querySelector(".js-search-button");
+searchButton.addEventListener("click", () => {
+  const searchVal = document.querySelector(".js-search-bar").value;
+
+  // searching without reload
+  const url = new URL(window.location.href);
+  url.searchParams.set("search", searchVal);
+  history.pushState(null, "", url);
+
+  renderProductsGrid();
+});
+
+// for when user click back
+window.addEventListener("popstate", () => {
+  renderProductsGrid();
+});
+
+// for input enter
+document.querySelector(".js-search-bar").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") searchButton.click();
+});

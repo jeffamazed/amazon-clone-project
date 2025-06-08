@@ -13,6 +13,7 @@ export class Product {
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
 
   getStarsUrl() {
@@ -95,13 +96,12 @@ export function loadProducts(fun) {
         return new Clothing(productDetails);
       }
 
-      if (productDetails.type === "appliances") {
+      if (productDetails.keywords.includes("appliances")) {
         return new Appliance(productDetails);
       }
 
       return new Product(productDetails);
     });
-    console.log("load products");
 
     if (typeof fun === "function") fun();
   });

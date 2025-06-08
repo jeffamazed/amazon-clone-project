@@ -4,6 +4,7 @@ import { getDate } from "../data/orders.js";
 import { formatCurrency } from "./utils/money.js";
 import { cart } from "../data/cart-class.js";
 import { updateCartQty } from "./utils/updateCartQty.js";
+import { handleSearchHeader } from "./utils/handleSearchHeader.js";
 
 function renderOrderHeader(order) {
   const date = getDate(order.orderTime);
@@ -143,10 +144,8 @@ async function loadPage(ordersInstance = orders) {
       updateCartQty();
     });
   });
-
+  handleSearchHeader();
   updateCartQty();
 }
 
 loadPage();
-// console.log(orders);
-console.log(cart.cartItems);

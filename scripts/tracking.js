@@ -3,7 +3,7 @@ import { getProduct, loadProductsFetch } from "../data/products.js";
 import { orders } from "../data/orders.js";
 import { getDateString } from "./utils/getDateString.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-console.log(orders);
+import { handleSearchHeader } from "./utils/handleSearchHeader.js";
 
 function calcProgressPercent(currentTime, deliveryTime, orderTime) {
   const elapsed = currentTime.diff(orderTime);
@@ -60,6 +60,9 @@ async function loadTrackingPage() {
     orderTime
   );
 
+  const deliveredMsg =
+    currentTime < deliveryTime ? "Arriving on" : "Delivered on";
+
   const trackingHTML = `
     <div class="order-tracking">
       <a class="back-to-orders-link link-primary" href="orders.html">
@@ -67,7 +70,7 @@ async function loadTrackingPage() {
       </a>
 
       <h1 class="delivery-date">
-        Arriving on ${dateString}
+        ${deliveredMsg} ${dateString}
       </h1>
 
       <p class="product-info">
@@ -123,6 +126,7 @@ async function loadTrackingPage() {
   ).style.width = `${progressPercent}%`;
 
   updateCartQty();
+  handleSearchHeader();
 }
 
 loadTrackingPage();
