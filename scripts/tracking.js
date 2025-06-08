@@ -10,7 +10,7 @@ function calcProgressPercent(currentTime, deliveryTime, orderTime) {
   const total = deliveryTime.diff(orderTime);
 
   const progress = (elapsed / total) * 100;
-  const progressPercent = Math.min(Math.max(Math.round(progress), 0), 100);
+  const progressPercent = Math.min(Math.max(Math.round(progress), 1), 100);
 
   return progressPercent;
 }
