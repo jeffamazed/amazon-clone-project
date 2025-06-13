@@ -97,6 +97,7 @@ function renderProductsGrid() {
   document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
   // for toggling "Added" msg
+  // timeout collections based on id
   const addedMsgTimeouts = {};
   function handleAddedMsg(productId) {
     const addedMsgContainer = document.querySelector(
@@ -116,8 +117,6 @@ function renderProductsGrid() {
     }, 1000);
     addedMsgTimeouts[productId] = timeoutId;
   }
-
-  // timeout collections based on id
 
   document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
